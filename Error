@@ -1,0 +1,16 @@
+After the human OR Computer makes 3rd move, error:
+
+java.lang.ArrayIndexOutOfBoundsException: -1
+        at board.Board.getPieceValue(Board.java:45)
+        at board.Piece.numNeighbors(Piece.java:81)
+        at player.LegalMoves.clusters(LegalMoves.java:138)
+        at player.LegalMoves.isLegalMove(LegalMoves.java:172)
+        at player.LegalMoves.allLegalAddMoves(LegalMoves.java:26)
+        at player.LegalMoves.allLegalMoves(LegalMoves.java:12)
+        at player.GameTree.chooseMove(GameTree.java:40)
+        at player.MachinePlayer.chooseMove(MachinePlayer.java:94)
+        at network.X3.ooxxo(X3.java:173)
+        at network.X3.oxxxo(X3.java:103)
+        at Network.playGame(Network.java:120)  
+        at Network.main(Network.java:196)
+

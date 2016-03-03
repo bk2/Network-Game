@@ -1,0 +1,257 @@
+Name of student running submit: Kate Pham
+Login of student running submit: cs61b-agy
+
+Second team member's name: Kishan Panchal
+Second team member's login: cs61b-ayc
+
+Third team member's name (if any): Brandon Kho
+Third team member's login: cs61b-fp
+===============================================================================
+Does your program compile without errors? 
+Yes
+
+
+Have you tested your program on the 61B lab machines? 
+Yes
+
+
+Did you successfully implement game tree search?
+Yes
+
+Did you successfully implement alpha-beta pruning?
+Yes
+
+Are there any limitations on it?
+No
+
+What is the default number of search levels set by the one-parameter MachinePlayer
+constructor (or is it a variable-depth search)?
+2
+
+Describe your board evaluation function in some detail.
+Our board evaluation function takes into account the number of connections of our player and the number of connections of the opponent. 
+A higher score is given to the player if they have more connections than the opponent.
+Also, points are given to the player if there are pieces in the goal, but having more than 3 pieces in the goal causes points to be lost.
+
+Does your MachinePlayer use any special method of choosing the first few moves?
+Our MachinePlayer has the first two moves hardcoded.
+
+Is there anything else the graders should know to help them read your project?
+No
+
+Classes:
+
+List Package (HW5)
+    * Dlist
+    * DListNode  
+    * List
+    * ListNode
+    * SList
+    * SListNode
+    * InvalidNodeException
+
+    *Board
+    *InvalidLocationException
+    *AI
+    *MachinePlayer
+    *Move
+    *Player
+    *Piece
+    *Evaluate
+    *LegalMoves
+    *Connections
+    *Best
+   
+/////////  MODULE 1   ////////// Kishan Panchal
+
+Board Representation & Piece Representation
+
+CLASSES:
+-Gameboard
+-InvalidLocationException
+-Piece
+
+INTERFACES:
+
+public space getPieceValue(int x, int y)
+//getPieceValue returns a piece at a specific position 
+//param x is x-coordinate or piece, & param y is y-coordinate   
+
+public int pieceTotal(int color)
+//PieceTotal returns the total amount of chips of each color that's on the board
+ //param color is an int that represents the color black or white   
+//returns the total amount of white or black pieces that are currently on the board
+
+public void insertPiece(int x, int y, int color)
+//insert a chip of the specified color at the position at x & y in the matrix 
+//it's basically the add move   
+//param x is the x-coordinate, param y is the y-coordinate, color is color of the piece              
+    
+public void removePiece(int x, int y, int color) throws InvalidLocationException
+//This method removes a game piece at a position x,y from the board
+//params x & y are the x and y coordinates on the board     
+
+public void stepMove(int x, int y, int x2, int y2) throws InvalidLocationException
+//This method performs a STEP move, where a user replaces a position with a new one
+//params x and y represent coordinates of the first move, and
+//params x2 and y2 represent coordinates of another move that is the new move
+
+public void makeMove(Move move, int color) throws InvalidLocationException
+//makeMove plays a move that is either a step move or an add move   
+//param move takes in either an add or step move
+//param color takes in an int representing a black or white piece
+
+public void undoMove(Move m) 
+//An undoMove function that gets used in the gametree. It just undos a move
+//param move takes in either an ADD or STEP move 
+
+Piece Class
+
+public Piece(int x, int y, int color)
+//the piece constructor that takes in a position in
+//x & y and a color that's represented as an int
+//creates a new DList that will contain all of the piece's neighbors    
+
+public int getX()    
+//return the x coordinate   
+
+public int getY()
+//return the y-value
+
+public int getColor()     
+//return the color of the piece
+
+public DList getNeighbors()
+//param board is the current board being examined
+//keep a count of the current neighbors, which is 0
+//make a DList called neighbors
+//check the piece from left to right, and put it into a list    
+//return the neighborList of the current piece object 
+  
+public int numNeighbors(Board board)         
+/* check how many neighbors surround a particular piece in order
+   to apply the cluster rule of the game. This number will be checked
+   by the legal moves, which determines when to apply cluster rule
+   param board is a board that is passed in
+   returns an int that represents the number of neighbors that a current piece on the board has
+*/
+
+FIELDS:
+
+    public static final int HEIGHT = 8;
+    public static final int WIDTH = 8;
+
+    public static final int WHITE = 1;
+    public static final int BLACK = 0;
+
+    public static final int EMPTY = 2; 
+ 
+    private int totalWhite = 0;
+    private int totalBlack = 0;
+
+    private int x;
+    private int y;
+    private int color;
+    private DList neighborList;
+
+
+/////////  MODULE 2   ////////// Brandon Kho
+
+Classes:    
+
+LegalMoves  
+
+Interfaces:
+//param board is the board being looked at.
+//param player is the color of player whose turn it is.
+//returns DList allLegalAddMoves if there are fewer than 10 chips on board
+//returns DList allLegalStepMoves if there are more than 10 chips on board
+public static DList allLegalMoves(Board board, int player)  
+
+//param board is the board being looked at.
+//param player is the color of player whose turn it is.
+//returns DList of addmoves
+public static DList allLegalAddMoves(Board board, int player)
+
+//param board is the board being looked at.
+//param player is the color of player whose turn it is.
+//returns DList of stepmoves
+public static DList allLegalStepMoves(Board board, int player)
+
+//param currentMove is the move being tested to see if it is legal.
+//param board is the board being looked at.
+//param player is the color of player whose turn it is.
+//returns false if move if not legal and true if it is legal
+public static boolean isLegalMove(Move currentMove, Board board, int player)
+
+
+/////////  MODULE 3   ////////// Brandon Kho & Kishan Panchal
+
+Network Identification & Score Calculation
+  
+CLASSES:
+
+Evaluator
+Connections
+
+INTERFACES:
+
+public static double evaluate(Board board, int color) throws InvalidNodeException
+/*
+calculates the score     
+The argument is an int that represents which player the board is evaluated for, 
+and this method returns a score between -max value and max value where a negative number is better for the opponent 
+if the player has a winning network, it returns the max number.
+if the opponent has a winning network, it returns the negative max number.
+the score returned by evaluate takes the number of connections of the player and subtracts the number of connections of the opponent from it.
+evaluate also added points for putting pieces in the goals but it takes away points if there are too many pieces in the goals.
+ */ 
+
+public static boolean validNetwork(DList visited,Gameboard board) throws InvalidNodeException
+
+/* 
+The argument visited is the list of all the chips that the partial network visited already
+ The argument board is the board which that is currently evaluated
+*/
+
+/////////  MODULE 4   ////////// Kate Pham
+
+Game Tree Search
+  
+CLASS:  
+
+AI 
+Best
+
+Methods:
+
+// returns the best move using the method MiniMax recursively and alpha-beta pruning.
+public static Move gameTree(int color, Board board, int depth) {
+
+/////////  MODULE 5  ////////// Kate Pham  
+
+Machine Player  
+
+CLASSES:
+
+MachinePlayer
+Fields:
+
+Board gameboard;
+int machine_color;  
+int search_depth;
+int curr_player;
+
+Constructors: 
+// Creates a machine player with the given color.
+public MachinePlayer(int color)
+// Creates a machine player with the given color and search depth.
+public MachinePlayer(int color, int searchDepth)
+// Returns a new move by “this” player.
+public Move chooseMove()
+// Opponents inform “this” player of their move. If the Move m is legal, the gameboard updates with that move m and returns true. Otherwise it returns false, and no update of the gameboard is necessary.
+public boolean opponentMove(Move m)
+// If the Move m is legal, “this” player makes that move, the gameboard updates and it returns ture. Otherwise, it returns false without updating the gameboard.
+public boolean forceMove(Move m)
+
+

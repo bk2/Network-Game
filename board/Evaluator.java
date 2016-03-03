@@ -339,6 +339,7 @@ return a boolean true if pieceA and pieceB have identical coordinates.
 	public static boolean winningNetwork(Board board, int player) throws InvalidNodeException{
 		
 		DList goalpieces = piecesOfPlayer(player,board);
+		
 
 		goalpieces = piecesInGoal(goalpieces,board);
 
