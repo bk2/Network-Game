@@ -1,8 +1,7 @@
 # Network-Game
 A machine player AI that plays the game Network, published in "A Gamut of Games" by Sid Sackson. 
 
-Running Network
-===============
+### Running Network ###
 You can run Network from from the command prompt in the following ways:
 
   java Network human random
@@ -59,8 +58,7 @@ White may play there.  The corner squares--00, 70, 07, and 77--are dead;
 neither player may use them.  Either player may place a chip in any square not
 on the board's border.
 
-Object of Play
-==============
+### Object of Play ###
 Each player tries to complete a "network" joining its two goal areas.
 A network is a sequence of six or more chips that starts in one of the player's
 goal areas and terminates in the other.  Each consecutive pair of chips in the
@@ -114,9 +112,9 @@ A network cannot pass through a chip without turning a corner (i.e. changing
 direction).  Because of the chip in square 42, the following is not a network.
 
     60 - 42 - 33 - 35 - 55 - 57
-
-Legal Moves
-===========
+
+### Legal Moves ###
+
 To begin the game, choose who is Black and who is White in any manner (we use a
 random number generator).  The players alternate taking turns, with White
 moving first.
@@ -170,4 +168,4 @@ has been placed back on the board, the player taking the step move loses.  If
 a player makes a move that causes both players to complete a network, the other
 player wins.
 
-![alt tag](http://imgur.com/a/oBCrs)
+![tag](http://i.imgur.com/YINVY8d.png)
